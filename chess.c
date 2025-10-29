@@ -109,19 +109,93 @@ bool verifTour(char plateau[8][8], int ligD, int colD, int ligA, int colA, char 
 }
 
 bool verifCavalier(char plateau[8][8], int ligD, int colD, int ligA, int colA, char piece){
-	
+	char cible = plateau[ligA][colA];
+	if (estAllie(piece, cible)){
+		return false;
+	}
+	return true;
 }
 
 bool verifFou(char plateau[8][8], int ligD, int colD, int ligA, int colA, char piece){
+	char cible = plateau[ligA][colA];
+	if (estAllie(piece, cible)){
+		return false;
+	}
 	
+	// Vérifie que le déplacement est bien diagonal
+    	if (abs(ligA - ligD) != abs(colA - colD)) {
+        	return false;
+    	}
+	
+	//on vérifie si la diagonnale est vide pour pouvoir passer
+	//diagonnale haut droite
+	if (ligA < ligD && colA > colD){
+		int l = ligD -1;
+		int c = colD +1;
+		while (l > ligA && c < colA){
+			if (plateau[l][c] != ' ') {
+				return false;
+			}
+			l--;
+			c++;
+		}
+	}
+	// diagonnale haut gauche
+	else if (ligA < ligD && colA < colD){
+		int l = ligD -1;
+		int c = colD -1;
+		while (l > ligA && c > colA){
+			if (plateau[l][c] != ' ') {
+				return false;
+			}
+			l--;
+			c--;
+		}
+	}
+	//diagonnale bas droite
+	else if (ligA > ligD && colA > colD){
+		int l = ligD +1;
+		int c = colD +1;
+		while (l < ligA && c < colA){
+			if (plateau[l][c] != ' ') {
+				return false;
+			}
+			l++;
+			c++;
+		}
+	}
+	//diagonnale bas gauche
+	else if (ligA > ligD && colA < colD){
+		int l = ligD +1;
+		int c = colD -1;
+		while (l < ligA && c > colA){
+			if (plateau[l][c] != ' ') {
+				return false;
+			}
+			l++;
+			c--;
+		}
+	}
+	else {
+		return false;
+	}
+	return true;
 }
 
 bool verifRoi(char plateau[8][8], int ligD, int colD, int ligA, int colA, char piece){
-	
+	char cible = plateau[ligA][colA];
+	if (estAllie(piece, cible)){
+		return false;
+	}
+	return true;
 }
 
 bool verifDame(char plateau[8][8], int ligD, int colD, int ligA, int colA, char piece){
-	
+	char cible = plateau[ligA][colA];
+	if (estAllie(piece, cible)){
+		return false;
+	}
+	return true;
 }
 
 
